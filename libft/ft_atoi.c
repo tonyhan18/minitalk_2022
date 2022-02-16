@@ -3,45 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 16:40:14 by youncho           #+#    #+#             */
-/*   Updated: 2020/11/13 14:28:26 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/01 19:48:40 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/04 17:36:12 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define LLONG_MAX 9223372036854775807
 
-int	check_llong(unsigned long long ans, int sign)
+static int	ft_isspace(char c)
 {
-	if (sign == -1 && LLONG_MAX <= ans)
+	if (c == ' ' || c == '\t' || c == '\r'
+		|| c == '\n' || c == '\v' || c == '\f')
+		return (1);
+	else
 		return (0);
-	if (sign == 1 && LLONG_MAX < ans)
-		return (-1);
-	return (sign * ans);
 }
 
 int	ft_atoi(const char *str)
 {
-	int					sign;
-	unsigned long long	ans;
+	unsigned long int		num;
+	int						sign;
+	int						i;
 
-	ans = 0;
+	i = 0;
 	sign = 1;
-	while ((9 <= *str && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
+	num = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
+		if (str[i] == '-')
+			sign = -1;
+		i++;
 	}
-	while ('0' <= *str && *str <= '9')
+	while (ft_isdigit(str[i]))
 	{
-		ans *= 10;
-		ans += *str - '0';
-		str++;
+		num = num * 10 + (str[i] - '0');
+		i++;
 	}
-	return (check_llong(ans, sign));
+	return ((int)(num * sign));
 }

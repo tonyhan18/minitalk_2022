@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/minitalk.h"
+# include "../includes/minitalk.h"
 
 void	connection_terminate(pid_t serv_pid)
 {

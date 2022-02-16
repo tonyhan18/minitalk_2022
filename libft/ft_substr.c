@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 14:14:13 by youncho           #+#    #+#             */
-/*   Updated: 2021/07/06 00:36:46 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/02 13:42:12 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 14:17:20 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*ret;
-	size_t	sl;
+	size_t	s_len;
+	size_t	sub_len;
+	char	*new_str;
 
 	if (!s)
-		return (0);
-	sl = ft_strlen(s);
-	if (start >= sl)
-		start = sl;
-	else if (start + len > sl)
-		len = sl - start;
-	ret = (char *)malloc(len + 1);
-	if (!ret)
-		return (0);
-	ft_memcpy(ret, s + start, len);
-	ret[len] = 0;
-	return (ret);
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	sub_len = len;
+	if (start + len > s_len)
+		sub_len = (s_len - start);
+	new_str = (char *) malloc(sizeof(char) * (sub_len + 1));
+	if (!(new_str))
+		return (NULL);
+	ft_strlcpy(new_str, s + start, sub_len + 1);
+	return (new_str);
 }

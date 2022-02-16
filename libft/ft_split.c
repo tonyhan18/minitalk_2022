@@ -3,83 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 17:31:41 by youncho           #+#    #+#             */
-/*   Updated: 2021/07/06 00:32:54 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/02 14:33:15 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/04 13:34:30 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	count_words(char const *s, char c)
+static size_t	ft_get_split_cnt(char const *s, char c)
 {
-	size_t	ret;
-	int		chk;
-
-	ret = 0;
-	chk = 0;
-	while (*s)
-	{
-		if (*s != c && !chk)
-		{
-			chk = 1;
-			ret++;
-		}
-		else if (*s == c && chk)
-			chk = 0;
-		s++;
-	}
-	return (ret);
-}
-
-char	**allocate_fail(char **tmp, size_t idx)
-{
+	size_t	split_str;
 	size_t	i;
 
+	split_str = 0;
 	i = 0;
-	while (i < idx)
-		free(tmp[i++]);
-	free(tmp);
-	return (0);
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+		{
+			while (s[i] == c)
+				i++;
+		}
+		else if (s[i] != c)
+		{
+			split_str++;
+			while (s[i] != c && s[i] != '\0')
+				i++;
+		}
+	}
+	return (split_str);
 }
 
-int	init_split(char const *s, char c, size_t *idx, char ***ret)
+static char	**ft_free_str(char **str)
 {
-	if (!s)
-		return (0);
-	*idx = 0;
-	*ret = (char **)malloc(sizeof(char *) * (count_words(s, c) + 1) + 1);
-	if (!*ret)
-		return (0);
-	return (1);
+	size_t	cur_idx;
+
+	cur_idx = 0;
+	while (*(str + cur_idx))
+		free(*(str + cur_idx));
+	free(str);
+	return ((char **) 0);
+}
+
+static size_t	ft_find_split(char const *s, char c, size_t *str_len)
+{
+	size_t	start;
+	size_t	end;
+	size_t	i;
+
+	start = 0;
+	end = 0;
+	i = 0;
+	while (s[i] == c)
+		i++;
+	start = i;
+	while (s[i] != c && s[i] != '\0')
+		i++;
+	end = i;
+	*str_len = end - start;
+	return (i);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**ret;
-	char	*tmp;
-	size_t	idx;
-	int		init;
+	char	**str;
+	size_t	str_idx;
+	size_t	str_len;
+	size_t	row_idx;
+	size_t	split_cnt;
 
-	init = init_split(s, c, &idx, &ret);
-	if (!init)
-		return (0);
-	while (*s)
+	if (!s)
+		return ((char **) 0);
+	split_cnt = ft_get_split_cnt(s, c);
+	str = (char **)malloc(sizeof(char *) * (split_cnt + 1));
+	if (!(str))
+		return ((char **) 0);
+	row_idx = 0;
+	str_idx = 0;
+	while (row_idx < split_cnt)
 	{
-		if (*s == c)
-		{
-			s++;
-			continue ;
-		}
-		tmp = (char *)s;
-		while (*s && *s != c)
-			s++;
-		ret[idx] = (char *)malloc(s - tmp + 1);
-		if (!ret[idx])
-			return (allocate_fail(ret, idx));
-		ft_strlcpy(ret[idx++], tmp, s - tmp + 1);
+		str_idx += ft_find_split(s + str_idx, c, &str_len);
+		str[row_idx] = (char *) malloc(str_len + 1);
+		if (!str[row_idx])
+			return (ft_free_str(str));
+		ft_strlcpy(str[row_idx++], s + str_idx - str_len, str_len + 1);
 	}
-	ret[idx] = 0;
-	return (ret);
+	str[row_idx] = (char *) 0;
+	return (str);
 }

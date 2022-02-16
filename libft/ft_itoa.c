@@ -3,47 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/03 11:15:31 by youncho           #+#    #+#             */
-/*   Updated: 2021/07/06 00:40:16 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/02 15:11:37 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 21:50:16 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	get_len(long long n)
+static int	ft_len(int n)
 {
-	if (n < 10)
-		return (1);
-	return (get_len(n / 10) + 1);
+	int		len;
+
+	if (n < 0)
+		len = 1;
+	else
+		len = 0;
+	while (n != 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
+}
+
+static void	ft_recursive_insert(char *buf, size_t *buf_idx, long long n)
+{
+	if (n == 0)
+		return ;
+	ft_recursive_insert(buf, buf_idx, n / 10);
+	buf[(*buf_idx)++] = '0' + (n % 10);
+	return ;
 }
 
 char	*ft_itoa(int n)
 {
-	char			*ret;
-	int				len;
-	long long		tmp;
+	char		*str;
+	int			sign;
+	size_t		n_len;
+	size_t		buf_idx;
+	long long	value;
 
-	len = 0;
-	tmp = n;
+	sign = 1;
+	if (n == 0)
+		return (ft_strdup("0"));
 	if (n < 0)
+		sign = -1;
+	n_len = ft_len(n);
+	str = (char *)malloc(sizeof(char) * (n_len + 1));
+	if (!str)
+		return (NULL);
+	buf_idx = 0;
+	value = n;
+	if (sign == -1)
 	{
-		len++;
-		tmp = -tmp;
+		str[buf_idx++] = '-';
+		value *= -1;
 	}
-	len += get_len(tmp);
-	ret = malloc(len + 1);
-	if (!ret)
-		return (0);
-	ret[len] = 0;
-	ret[--len] = tmp % 10 + '0';
-	while (tmp / 10)
-	{
-		tmp /= 10;
-		ret[--len] = tmp % 10 + '0';
-	}
-	if (n < 0)
-		ret[0] = '-';
-	return (ret);
+	ft_recursive_insert(str, &buf_idx, value);
+	str[buf_idx] = '\0';
+	return (str);
 }

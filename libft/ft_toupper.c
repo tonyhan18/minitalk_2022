@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 20:40:04 by youncho           #+#    #+#             */
-/*   Updated: 2021/07/06 00:11:40 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/01 21:04:18 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 14:05:25 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_toupper(int c)
 {
 	if ('a' <= c && c <= 'z')
-		return (c + ('A' - 'a'));
+		return (c - ('a' - 'A'));
 	return (c);
 }

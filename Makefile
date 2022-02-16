@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/02 00:49:37 by youncho           #+#    #+#              #
-#    Updated: 2021/07/15 12:16:26 by youncho          ###   ########.fr        #
+#    Created: 2022/02/17 00:58:21 by chahan            #+#    #+#              #
+#    Updated: 2022/02/17 00:58:22 by chahan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,12 +30,14 @@ OBJS_CL_B = $(SRCS_CL_B:.c=.o)
 GCC_FLAG = -Wall -Werror -Wextra
 CC = gcc $(GCC_FLAG)
 
+OBJF = .cache_exists
+
 all: $(NAME_SV) $(NAME_CL)
 
 libft:
 	make bonus -C libft/
 
-$(%.o): $(%.c)
+$(%.o): $(%.c) | $(OBJF)
 	$(CC) -o $@ -c $^
 
 $(NAME_SV): libft $(OBJS_SV)
@@ -44,6 +46,8 @@ $(NAME_SV): libft $(OBJS_SV)
 $(NAME_CL): libft $(OBJS_CL)
 	$(CC) -o $@ $(OBJS_CL) -Llibft -lft -I./includes
 
+$(OBJF):
+			@mkdir -p $(OBJ_DIR)
 
 bonus: $(NAME_SV_B) $(NAME_CL_B)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 09:25:50 by youncho           #+#    #+#             */
-/*   Updated: 2020/11/13 09:37:01 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/02 17:25:51 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 17:27:31 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (lst && del)
-	{
-		del(lst->content);
-		free(lst);
-	}
+	if (!lst)
+		return ;
+	del(lst->content);
+	free(lst);
+	return ;
 }

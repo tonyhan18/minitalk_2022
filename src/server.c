@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../include/minitalk.h"
+# include "../includes/minitalk.h"
 
 void	handler(int sig, siginfo_t *siginfo, void *unuse)
 {
@@ -27,7 +27,6 @@ void	handler(int sig, siginfo_t *siginfo, void *unuse)
 		index = 0;
 		if (c == 0x00)
 		{
-			ft_putchar_fd('\n', 1);
 			client_pid = 0;
 			return;
 		}

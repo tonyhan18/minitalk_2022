@@ -3,33 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 20:48:55 by youncho           #+#    #+#             */
-/*   Updated: 2021/07/05 23:53:31 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/01 16:14:36 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 21:50:30 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *h, const char *n, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	idx;
-	size_t	nlen;
-	size_t	hlen;
+	size_t	b_size;
+	size_t	l_size;
+	size_t	i;
 
-	if (!*n)
-		return ((char *)h);
-	hlen = ft_strlen(h);
-	nlen = ft_strlen(n);
-	if (!len || !hlen || len < nlen)
-		return (0);
-	idx = 0;
-	while (idx + nlen <= len && idx + nlen <= hlen)
+	if (*little == '\0')
+		return ((char *)big);
+	b_size = ft_strlen(big);
+	l_size = ft_strlen(little);
+	if (len == 0 || len < l_size || b_size == 0)
+		return (NULL);
+	i = 0;
+	while (i < len - l_size + 1)
 	{
-		if (!ft_strncmp((char *)(h + idx), (char *)n, nlen))
-			return ((char *)(h + idx));
-		idx++;
+		if (*(big + i) == *(little))
+		{
+			if (ft_strncmp(big + i, little, l_size) == 0)
+				return ((char *)big + i);
+		}
+		i++;
 	}
-	return (0);
+	return (NULL);
 }

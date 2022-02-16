@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 09:17:15 by youncho           #+#    #+#             */
-/*   Updated: 2020/11/13 09:37:37 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/02 17:17:37 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 17:18:51 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)
-		return (0);
+		return (lst);
 	while (lst->next)
 		lst = lst->next;
 	return (lst);

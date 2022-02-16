@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <youncho@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/05 16:45:08 by youncho           #+#    #+#             */
-/*   Updated: 2021/07/06 00:36:59 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/01 17:33:34 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 20:22:23 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	idx;
+	int			ret;
+	size_t		i;
 
-	idx = -1;
-	while (++idx < n && (s1[idx] || s2[idx]))
+	i = 0;
+	ret = 0;
+	if (!s1 && !s2)
+		return (ret);
+	while (i < n)
 	{
-		if (s1[idx] != s2[idx])
-			return ((unsigned char)s1[idx] - (unsigned char)s2[idx]);
+		if (*((char *)s1 + i) != *((char *)s2 + i)
+			|| !*((char *)s1 + i) || !*((char *)s2 + i))
+		{
+			ret = *((unsigned char *)s1 + i) - *((unsigned char *)s2 + i);
+			return (ret);
+		}
+		i++;
 	}
-	return (0);
+	return (ret);
 }

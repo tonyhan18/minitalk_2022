@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: youncho <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: chahan <hgdst14@naver.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 09:39:59 by youncho           #+#    #+#             */
-/*   Updated: 2020/11/13 09:41:55 by youncho          ###   ########.fr       */
+/*   Created: 2021/07/02 17:30:30 by chahan            #+#    #+#             */
+/*   Updated: 2021/07/02 17:31:19 by chahan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (lst && f)
+	while (lst)
 	{
-		while (lst)
-		{
-			f(lst->content);
-			lst = lst->next;
-		}
+		f(lst->content);
+		lst = lst->next;
 	}
+	return ;
 }
